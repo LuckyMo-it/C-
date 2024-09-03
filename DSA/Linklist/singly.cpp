@@ -1,20 +1,91 @@
-#include<iostream>
-#include<cstdio>
-class node{
-    public:
-    int data;
-    node* next;
-    node()
+#include <cstdio>
+class linklist
+{public:
+    struct node
     {
-        next=nullptr;
+        int data;
+        node *next;
+    } *p;
+    linklist()
+    {
+        p=nullptr;
     }
-};
-class linklist{public:
-    node *p=new node;
-    
     void append(int num);
     void show();
-};
+    void unshift(int num);
+    void addat(int pos,int data);
+
+
+}; 
+void linklist::addat(int pos,int data)
+{
+    node*first,*second,*r,*temp;
+    first=second=p;
+    while(first!=nullptr)
+    {
+        
+        if(first->data==pos)
+        {
+            r=new node;
+            r->data=data;
+            r->next=nullptr;
+            temp=r;
+            temp->next=first->next;
+            first->next=temp;
+            return;
+        }
+        second=first;
+        first=first->next;
+
+    }
+    printf("data not found");
+}
+void linklist::unshift(int num)
+{
+    node*temp,*r;
+    temp=p;
+    if(temp==nullptr)
+    {
+        r=new node;
+        r->data=num;
+        r->next=nullptr;
+        p=r;
+        return;
+    }
+
+    r=new node;
+    r->data=num;
+    r->next=nullptr;
+    temp=r;
+    temp->next=p;
+    p=temp;
+    
+}
+void linklist::append(int num)
+{
+    node *temp,*r;
+    temp=p;
+    if(temp==nullptr)
+    {
+        r=new node;
+        r->data=num;
+        r->next=nullptr;
+        
+        p=r;
+        return;
+    }
+    while(temp->next!=nullptr)
+    {
+        temp=temp->next;
+    }
+    r=new node;
+    r->data=num;
+    r->next =NULL;
+    temp->next =r;
+    temp=r;
+
+    
+}
 void linklist::show()
 {
     node *temp;
@@ -24,34 +95,19 @@ void linklist::show()
         printf("%d->",temp->data);
         temp=temp->next;
     }
-    
-
-    
-}
-void linklist::append(int num)
-{
-    node *temp,*r;
-    if(p==nullptr)
-    {
-        temp=new node;
-        temp->data=num;
-    }
-    else
-    {
-        temp=p;
-        while(temp->next!=nullptr)
-            temp=temp->next;
-        r=new node;
-        r->data=num;
-        temp->next=r;
-    }
+    printf("NULL");
 }
 int main()
 {
-    linklist test;
-    test.append(23);
-    test.append(20);
-    test.append(11);
-    test.append(90);
-    test.show();
+    linklist t;
+    // t.append(90);
+    // t.append(900);
+    // t.append(80);
+    // t.append(9);
+    t.unshift(79);
+    t.unshift(100);
+
+    t.unshift(50);
+    t.addat(100,500);
+    t.show();
 }
